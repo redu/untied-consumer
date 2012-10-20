@@ -27,7 +27,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "json"
 
   if RUBY_VERSION < "1.9"
-    gem.add_runtime_dependency "system_timer"
     gem.add_development_dependency "ruby-debug"
   else
     gem.add_development_dependency "debugger"
