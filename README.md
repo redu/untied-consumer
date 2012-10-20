@@ -4,6 +4,9 @@ This is the consumer part of Untied. Untied is an observer pattern implementatio
 
 For usage information, please visit the [Untied](http://github.com.br/redu/untied) page.
 
+**Build status**
+
+[![Build Status](https://travis-ci.org/redu/untied-consumer.png)](https://travis-ci.org/redu/untied-consumer)
 
 ## Installation
 
