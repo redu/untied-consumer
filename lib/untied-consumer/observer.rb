@@ -70,6 +70,7 @@ module Untied
         return nil unless CALLBACKS.include? event_name
         return nil unless service == observed_service
         return nil unless observed_classes.include? klass
+        return nil unless respond_to?(event_name)
 
         self.send(event_name, entity)
       end

@@ -109,6 +109,12 @@ module Untied
           subject.should_not_receive(:after_create)
           subject.notify
         end
+
+        it "should not raise error when no callback method is defined" do
+          expect {
+            subject.notify(:after_commit, :user, :core, { :user => {} })
+          }.to_not raise_error(NoMethodError, /undefined method `after_commit'/)
+        end
       end
     end
   end
