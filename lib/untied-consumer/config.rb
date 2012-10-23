@@ -18,6 +18,7 @@ module Untied
 
       config :logger, Logger.new(STDOUT)
       config :observers, []
+      config :abort_on_exception, false
     end
   end
 end

@@ -14,7 +14,22 @@ module Untied
       def start
         @channel.queue(@queue_name, :exclusive => true) do |queue|
           queue.bind(@exchange, :routing_key => "untied.#").subscribe do |h,p|
-            @consumer.process(h,p)
+            safe_process { @consumer.process(h,p) }
+          end
+        end
+      end
+
+      protected
+
+      def safe_process(&block)
+        begin
+          yield
+        rescue => e
+          if Consumer.config.abort_on_exception
+            raise e
+          else
+            Consumer.config.logger.error e.message
+            Consumer.config.logger.error e.backtrace.join("\n\t")
           end
         end
       end
