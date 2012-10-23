@@ -11,17 +11,17 @@ module Untied
 
       def process(headers, message)
         begin
-          message = JSON.parse(message, :symbolize_names => true)
+          message = JSON.parse(message)
         rescue JSON::ParserError => e
           Consumer.config.logger "Untied::Processor: Parsing error #{e}"
           return
         end
 
-        message = message.fetch(:event, {})
-        payload = message.fetch(:payload, {})
-        service = message[:origin].try(:to_sym)
-        event_name = message[:name].try(:to_sym)
-        klass = payload.keys.first
+        message = message.fetch("event", {})
+        payload = message.fetch("payload", {})
+        service = message["origin"].try(:to_sym)
+        event_name = message["name"].try(:to_sym)
+        klass = payload.keys.first.try(:to_sym)
 
         Consumer.config.logger.info \
           "Untied::Processor: processing event #{event_name} from #{service} with " + \

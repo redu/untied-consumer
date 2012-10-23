@@ -49,7 +49,7 @@ module Untied
 
         it "should call Observer#notify with correct arguments" do
           SomeObserver.instance.should_receive(:notify).
-            with(:after_create, :user, :core, { :user => { :name => "Guila" } })
+            with(:after_create, :user, :core, { "user" => { "name" => "Guila" } })
           MyProcessor.new.process({}, message.to_json)
         end
 
