@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'untied-consumer/worker'
 require 'amqp'
 
@@ -5,12 +7,7 @@ namespace :untied do
   namespace :consumer do
     desc "Starts untied's worker"
     task :work => :environment do
-      AMQP.start do |connection|
-        channel  = AMQP::Channel.new(connection)
-        exchange = channel.topic("untied", :auto_delete => true)
-        worker = Untied::Consumer::Worker.new(:channel => channel, :exchange => exchange)
-        worker.start
-      end
+      Untied::Consumer::Worker.start
     end
   end
 end
