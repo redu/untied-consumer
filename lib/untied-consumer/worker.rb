@@ -20,9 +20,11 @@ module Untied
       # Options:
       #   :pids_dir => '/some/dir' Absolute path to the dir where pid files will live
       #   :log_dir => '/some/dir' Absolute path to the dir where log files will live
+      #   :pname => 'mylovelydeamom'
       def daemonize(opts={})
         require 'daemons' # just in case
 
+        pname = opts.delete(:pname) || 'untiedc'
         config = {
           :backtrace  => true,
           :log_output => true,
@@ -39,7 +41,7 @@ module Untied
         FileUtils.mkdir_p(config[:log_dir])
 
         @worker = self
-        Daemons.run_proc('untiedc', config) { @worker.start }
+        Daemons.run_proc(pname, config) { @worker.start }
       end
 
       # Listens to the mssage bus for relevant events. This method blocks the
