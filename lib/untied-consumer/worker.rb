@@ -37,7 +37,7 @@ module Untied
         }.merge(opts)
 
         if !(config[:dir] && config[:log_dir])
-          raise ArgumentError "You need to provide pids_dir and log_dir"
+          raise ArgumentError.new("You need to provide pids_dir and log_dir")
         end
 
         FileUtils.mkdir_p(config[:dir])
