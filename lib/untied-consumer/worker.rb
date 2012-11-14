@@ -55,8 +55,8 @@ module Untied
           exchange = channel.topic("untied", :auto_delete => true)
 
           channel.queue(@queue_name, :exclusive => true) do |queue|
+            Consumer.config.logger.info "Worker initialized and listening"
             queue.bind(exchange, :routing_key => "untied.#").subscribe do |h,p|
-              Consumer.config.logger.info "Worker initialized and listening"
               safe_process { @consumer.process(h,p) }
             end
           end
