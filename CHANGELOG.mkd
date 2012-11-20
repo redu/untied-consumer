@@ -1,4 +1,7 @@
+# 0.0.5
+
 - Fixes #1
+- Enable Untied::Consumer::Worker to be initialized as a deamon
 
 # 0.0.3
 
